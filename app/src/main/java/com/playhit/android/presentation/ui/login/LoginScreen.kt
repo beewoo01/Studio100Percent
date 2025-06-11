@@ -36,6 +36,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.playhit.android.R
+import com.playhit.android.presentation.components.DefaultBlackButton
 import com.playhit.android.presentation.components.RoundedTextField
 import com.playhit.android.presentation.router.LocalNavScreenController
 import com.playhit.android.presentation.router.NavRoutes
@@ -117,27 +118,14 @@ private fun LoginView(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(17.dp))
 
-        Button(
-            onClick = {
-
-            },
-            shape = RoundedCornerShape(50),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Black
-            )
-        ) {
-            Text("로그인",
-                style = MaterialTheme.typography.labelLarge,
-                color = Color.White
-            )
-        }
+        DefaultBlackButton(
+            onClick = {},
+            title = "로그인"
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Row() {
+        Row {
             IconButton(
                 onClick = {},
             ) {
