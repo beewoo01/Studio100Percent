@@ -1,4 +1,9 @@
 package com.playhit.studio
 
-class StudioApplication {
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class StudioApp : Application() {
+
 }
