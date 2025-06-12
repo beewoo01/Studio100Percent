@@ -1,4 +1,4 @@
-package com.playhit.android.presentation.router
+package com.playhit.studio.presentation.router
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavHostController

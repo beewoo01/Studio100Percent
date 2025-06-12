@@ -1,4 +1,4 @@
-package com.playhit.android.presentation.router
+package com.playhit.studio.presentation.router
 
 sealed class NavRoutes(val route: String) {
     data object Splash : NavRoutes("splash")
