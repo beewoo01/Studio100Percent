@@ -1,15 +1,13 @@
-package com.playhit.android.data.source.local
+package com.playhit.studio.data.source.local
 
-import com.playhit.android.data.model.ExerciseDTO
-import com.playhit.android.data.model.ExerciseType
+import com.playhit.studio.data.model.ExerciseDTO
+import com.playhit.studio.data.model.ExerciseType
 
-class RemoteRunningMockData {
+object MockDataService {
     fun getRunningMockData(): List<ExerciseDTO> = mockExerciseList
-
 }
 
-
-val mockExerciseList = listOf(
+private val mockExerciseList = listOf(
     ExerciseDTO(id = 1, type = ExerciseType.WALK),
     ExerciseDTO(id = 2, type = ExerciseType.RUNNING),
     ExerciseDTO(id = 3, type = ExerciseType.YOGA),

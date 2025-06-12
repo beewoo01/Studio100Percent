@@ -58,10 +58,17 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.navigationCompose)
     implementation(libs.androidx.graphics.shapes.android)
+
+    // coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
+
+    // Hilt
     implementation(libs.hilt.android)
-    kapt("com.google.dagger:hilt-android-compiler:2.56.2")
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
