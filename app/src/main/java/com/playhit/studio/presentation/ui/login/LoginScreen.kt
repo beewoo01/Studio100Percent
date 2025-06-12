@@ -1,4 +1,4 @@
-package com.playhit.android.presentation.ui.login
+package com.playhit.studio.presentation.ui.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,12 +35,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.playhit.android.R
-import com.playhit.android.presentation.components.DefaultBlackButton
-import com.playhit.android.presentation.components.RoundedTextField
-import com.playhit.android.presentation.router.LocalNavScreenController
-import com.playhit.android.presentation.router.NavRoutes
-import com.playhit.android.presentation.theme.Studio100PercentTheme
+import com.playhit.studio.R
+import com.playhit.studio.presentation.components.DefaultBlackButton
+import com.playhit.studio.presentation.components.RoundedTextField
+import com.playhit.studio.presentation.router.LocalNavScreenController
+import com.playhit.studio.presentation.router.NavRoutes
 
 @Composable
 fun LoginScreen() {
