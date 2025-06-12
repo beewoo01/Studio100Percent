@@ -2,14 +2,21 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt.android)
+    kotlin("kapt")
+//    id("com.google.dagger.hilt.android")
+//    id("com.google.devtools.ksp")
+//    id("com.google.dagger.hilt.android")
+    //id("com.google.devtools.ksp")
+//    alias(libs.plugins.hilt.android)
 }
 
 android {
-    namespace = "com.playhit.android"
+    namespace = "com.playhit.studio"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.playhit.android"
+        applicationId = "com.playhit.studio"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -40,7 +47,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -51,6 +57,11 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.navigationCompose)
+    implementation(libs.androidx.graphics.shapes.android)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+    implementation(libs.hilt.android)
+    kapt("com.google.dagger:hilt-android-compiler:2.56.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
