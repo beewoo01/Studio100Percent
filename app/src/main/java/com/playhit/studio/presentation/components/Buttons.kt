@@ -15,11 +15,11 @@ import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun DefaultBlackButton(title: String = "", onClick: () -> Unit = {}) {
+fun DefaultBlackButton(title: String = "", onClick: () -> Unit = {}, modifier : Modifier = Modifier) {
     return Button(
         onClick = onClick,
         shape = RoundedCornerShape(50),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(50.dp),
         colors = ButtonDefaults.buttonColors(

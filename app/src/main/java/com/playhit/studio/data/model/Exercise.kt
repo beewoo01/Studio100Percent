@@ -1,6 +1,6 @@
-package com.playhit.android.data.model
+package com.playhit.studio.data.model
 
-import com.playhit.android.R
+import com.playhit.studio.R
 
 data class ExerciseDTO(
     val id : Int,
@@ -17,7 +17,7 @@ enum class ExerciseType(
     ),
 
     RUNNING(
-        exerciseName = "산책",
+        exerciseName = "러닝",
         image = R.drawable.exercise_running
     ),
 
