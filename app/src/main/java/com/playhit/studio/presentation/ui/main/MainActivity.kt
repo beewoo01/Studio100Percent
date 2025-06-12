@@ -1,4 +1,4 @@
-package com.playhit.android.presentation.ui.main
+package com.playhit.studio.presentation.ui.main
 
 import android.os.Bundle
 import android.util.Log
@@ -16,14 +16,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.playhit.android.presentation.router.LocalNavScreenController
-import com.playhit.android.presentation.router.NavRoutes
-import com.playhit.android.presentation.theme.Studio100PercentTheme
-import com.playhit.android.presentation.ui.exercise.ExerciseScreen
-import com.playhit.android.presentation.ui.join.JoinScreen
-import com.playhit.android.presentation.ui.login.LoginScreen
-import com.playhit.android.presentation.ui.splash.CustomSplashScreen
-import com.playhit.android.presentation.ui.terms.TermsScreen
+import com.playhit.studio.presentation.router.LocalNavScreenController
+import com.playhit.studio.presentation.router.NavRoutes
+import com.playhit.studio.presentation.theme.Studio100PercentTheme
+import com.playhit.studio.presentation.ui.exercise.ExerciseScreen
+import com.playhit.studio.presentation.ui.join.JoinScreen
+import com.playhit.studio.presentation.ui.login.LoginScreen
+import com.playhit.studio.presentation.ui.splash.CustomSplashScreen
+import com.playhit.studio.presentation.ui.terms.TermsScreen
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {

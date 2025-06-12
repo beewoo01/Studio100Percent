@@ -1,4 +1,4 @@
-package com.playhit.android.presentation.ui.exercise
+package com.playhit.studio.presentation.ui.exercise
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -30,9 +30,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.playhit.android.R
-import com.playhit.android.presentation.components.DefaultAppBar
-import com.playhit.android.presentation.theme.Studio100PercentTheme
+import com.playhit.studio.R
+import com.playhit.studio.presentation.components.DefaultAppBar
+import com.playhit.studio.presentation.theme.Studio100PercentTheme
 
 
 @Composable
