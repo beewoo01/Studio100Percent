@@ -1,4 +1,4 @@
-package com.playhit.android.presentation.components
+package com.playhit.studio.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
