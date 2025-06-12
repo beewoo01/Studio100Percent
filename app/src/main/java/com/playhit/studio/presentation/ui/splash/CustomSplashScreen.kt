@@ -48,11 +48,14 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun CustomSplashScreen() {
-    Scaffold(
+    Studio100PercentTheme {
+        CustomSplashView(modifier = Modifier)
+    }
+    /*Scaffold(
         content = {
             CustomSplashView(modifier = Modifier.padding(it))
         }
-    )
+    )*/
 }
 
 @Composable

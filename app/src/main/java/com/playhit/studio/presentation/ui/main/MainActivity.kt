@@ -19,6 +19,8 @@ import androidx.navigation.compose.rememberNavController
 import com.playhit.android.presentation.router.LocalNavScreenController
 import com.playhit.android.presentation.router.NavRoutes
 import com.playhit.android.presentation.theme.Studio100PercentTheme
+import com.playhit.android.presentation.ui.exercise.ExerciseScreen
+import com.playhit.android.presentation.ui.join.JoinScreen
 import com.playhit.android.presentation.ui.login.LoginScreen
 import com.playhit.android.presentation.ui.splash.CustomSplashScreen
 import com.playhit.android.presentation.ui.terms.TermsScreen
@@ -27,10 +29,8 @@ import kotlinx.coroutines.delay
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Log.d("MY_LOG", "MainActivity")
-
         enableEdgeToEdge()
+
         setContent {
             Studio100PercentTheme {
                 myApp()
@@ -53,7 +53,6 @@ private fun myApp() {
 @Composable
 fun myLocalProvider(content: @Composable () -> Unit) {
     val navController = rememberNavController()
-
     CompositionLocalProvider(LocalNavScreenController provides navController) {
         content()
     }
@@ -96,6 +95,22 @@ fun MyNavHost() {
             exitTransition = { outAnimation }
         ) {
             TermsScreen()
+        }
+
+        composable(
+            NavRoutes.Join.route,
+            enterTransition = { inAnimation },
+            exitTransition = { outAnimation },
+        ) {
+            JoinScreen()
+        }
+
+        composable(
+            NavRoutes.Exercise.route,
+            enterTransition = { inAnimation },
+            exitTransition = { outAnimation },
+        ) {
+            ExerciseScreen()
         }
 
         /*composable(NavRoutes.PokemonDetail.route + "/{pokedexId}",

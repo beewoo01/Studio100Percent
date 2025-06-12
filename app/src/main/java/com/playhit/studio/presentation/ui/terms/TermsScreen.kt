@@ -1,27 +1,19 @@
 package com.playhit.android.presentation.ui.terms
 
-import android.util.Log
 import android.widget.Toast
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,11 +31,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.playhit.android.R
 import com.playhit.android.presentation.components.DefaultBlackButton
+import com.playhit.android.presentation.router.LocalNavScreenController
+import com.playhit.android.presentation.router.NavRoutes
 import com.playhit.android.presentation.theme.Studio100PercentTheme
 
 @Composable
@@ -55,6 +48,7 @@ fun TermsScreen() {
 
 @Composable
 private fun TermsView(modifier: Modifier = Modifier) {
+    val navController = LocalNavScreenController.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -88,6 +82,8 @@ private fun TermsView(modifier: Modifier = Modifier) {
             }
         }
 
+
+
         AllCheckBox(
             checked = allCheckState.value,
             value = "모두 동의합니다.",
@@ -116,7 +112,7 @@ private fun TermsView(modifier: Modifier = Modifier) {
         Spacer(modifier = modifier.height(10.dp))
 
         CheckBox(
-            checked = allCheckState.value,
+            checked = termsCheckState.value,
             value = "[필수] 스튜디오백퍼센트 약관",
             onClick = {
                 termsCheckState.value = it
@@ -127,7 +123,7 @@ private fun TermsView(modifier: Modifier = Modifier) {
         )
 
         CheckBox(
-            checked = allCheckState.value,
+            checked = personalCheckState.value,
             value = "[필수] 개인정보 수집 및 이용 동의",
             onClick = {
                 personalCheckState.value = it
@@ -138,7 +134,7 @@ private fun TermsView(modifier: Modifier = Modifier) {
         )
 
         CheckBox(
-            checked = allCheckState.value,
+            checked = eventCheckState.value,
             value = "[선택] 이벤트 알림 수신에 동의합니다.",
             onClick = {
                 eventCheckState.value = it
@@ -155,10 +151,12 @@ private fun TermsView(modifier: Modifier = Modifier) {
         DefaultBlackButton(
             onClick = {
 
-                if (allCheckState.value) {
+                if (!termsCheckState.value && !personalCheckState.value) {
                     Toast.makeText(context, "필수항목에 동의를 해주세요.", Toast.LENGTH_SHORT).show()
                     return@DefaultBlackButton
                 }
+
+                navController.navigate(NavRoutes.Join.route)
 
                 return@DefaultBlackButton
             },
