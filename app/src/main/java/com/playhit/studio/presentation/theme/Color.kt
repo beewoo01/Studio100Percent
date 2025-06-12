@@ -1,4 +1,4 @@
-package com.playhit.android.presentation.theme
+package com.playhit.studio.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
