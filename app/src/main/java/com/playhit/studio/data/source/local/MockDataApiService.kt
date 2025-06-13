@@ -1,20 +1,20 @@
 package com.playhit.studio.data.source.local
 
-import com.playhit.studio.data.model.ExerciseDTO
+import com.playhit.studio.data.model.Exercise
 import com.playhit.studio.data.model.ExerciseType
 
-class MockDataService {
-    fun getRunningMockData(): List<ExerciseDTO> = mockExerciseList
+class MockDataApiService {
+    fun getRunningMockData(): List<Exercise> = mockExerciseList
 }
 
 
 private val mockExerciseList = listOf(
-    ExerciseDTO(id = 1, type = ExerciseType.WALK),
-    ExerciseDTO(id = 2, type = ExerciseType.RUNNING),
-    ExerciseDTO(id = 3, type = ExerciseType.YOGA),
-    ExerciseDTO(id = 4, type = ExerciseType.RUNNING_MACHINE),
-    ExerciseDTO(id = 5, type = ExerciseType.BODY_WEIGHT),
-    ExerciseDTO(id = 6, type = ExerciseType.BICYCLE),
-    ExerciseDTO(id = 7, type = ExerciseType.WEIGHT_TRAINING),
-    ExerciseDTO(id = 8, type = ExerciseType.SWIM)
+    Exercise(id = 1, type = ExerciseType.WALK),
+    Exercise(id = 2, type = ExerciseType.RUNNING),
+    Exercise(id = 3, type = ExerciseType.YOGA),
+    Exercise(id = 4, type = ExerciseType.RUNNING_MACHINE),
+    Exercise(id = 5, type = ExerciseType.BODY_WEIGHT),
+    Exercise(id = 6, type = ExerciseType.BICYCLE),
+    Exercise(id = 7, type = ExerciseType.WEIGHT_TRAINING),
+    Exercise(id = 8, type = ExerciseType.SWIM)
 )

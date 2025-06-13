@@ -1,19 +1,11 @@
 package com.playhit.studio.data.source.local
 
-import com.playhit.studio.data.model.ExerciseDTO
-import com.playhit.studio.data.model.ExerciseType
+import com.playhit.studio.data.model.Exercise
+import javax.inject.Inject
 
-object MockDataService {
-    fun getRunningMockData(): List<ExerciseDTO> = mockExerciseList
+class MockDataClient @Inject constructor(
+    private val mockDataService: MockDataApiService
+) {
+    fun getRunningMockData(): List<Exercise> = mockDataService.getRunningMockData()
 }
 
-private val mockExerciseList = listOf(
-    ExerciseDTO(id = 1, type = ExerciseType.WALK),
-    ExerciseDTO(id = 2, type = ExerciseType.RUNNING),
-    ExerciseDTO(id = 3, type = ExerciseType.YOGA),
-    ExerciseDTO(id = 4, type = ExerciseType.RUNNING_MACHINE),
-    ExerciseDTO(id = 5, type = ExerciseType.BODY_WEIGHT),
-    ExerciseDTO(id = 6, type = ExerciseType.BICYCLE),
-    ExerciseDTO(id = 7, type = ExerciseType.WEIGHT_TRAINING),
-    ExerciseDTO(id = 8, type = ExerciseType.SWIM)
-)

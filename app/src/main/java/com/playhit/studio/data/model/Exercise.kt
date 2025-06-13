@@ -2,14 +2,14 @@ package com.playhit.studio.data.model
 
 import com.playhit.studio.R
 
-data class ExerciseDTO(
-    val id : Int,
-    val type : ExerciseType
+data class Exercise(
+    val id: Int,
+    val type: ExerciseType
 )
 
 enum class ExerciseType(
-    val exerciseName : String,
-    val image : Int
+    val exerciseName: String,
+    val image: Int
 ) {
     WALK(
         exerciseName = "산책",
@@ -49,5 +49,9 @@ enum class ExerciseType(
     SWIM(
         exerciseName = "수영",
         image = R.drawable.exercise_swim
-    ),
+    );
+
+    companion object {
+        fun fromName(name: String): ExerciseType? = entries.find { it.exerciseName == name }
+    }
 }

@@ -24,8 +24,10 @@ import com.playhit.studio.presentation.ui.join.JoinScreen
 import com.playhit.studio.presentation.ui.login.LoginScreen
 import com.playhit.studio.presentation.ui.splash.CustomSplashScreen
 import com.playhit.studio.presentation.ui.terms.TermsScreen
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,10 +45,7 @@ class MainActivity : ComponentActivity() {
 private fun myApp() {
     Log.d("MY_LOG", "Running on Android: ${android.os.Build.MODEL}")
     myLocalProvider {
-        Studio100PercentTheme {
-            MyNavHost()
-        }
-
+        MyNavHost()
     }
 }
 

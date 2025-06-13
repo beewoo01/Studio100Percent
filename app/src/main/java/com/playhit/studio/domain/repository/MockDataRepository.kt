@@ -1,4 +1,7 @@
 package com.playhit.studio.domain.repository
 
-class MockDataRepository {
+import com.playhit.studio.data.model.Exercise
+
+interface MockDataRepository {
+    fun getExerciseMockData() : List<Exercise>
 }

@@ -156,7 +156,9 @@ private fun TermsView(modifier: Modifier = Modifier) {
                     return@DefaultBlackButton
                 }
 
-                navController.navigate(NavRoutes.Join.route)
+                navController.navigate(NavRoutes.Join.route) {
+                    popUpTo(NavRoutes.Terms.route) { inclusive = true }
+                }
 
                 return@DefaultBlackButton
             },

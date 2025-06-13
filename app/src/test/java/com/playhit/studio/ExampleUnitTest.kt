@@ -1,4 +1,4 @@
-package com.playhit.android
+package com.playhit.studio
 
 import org.junit.Test
 

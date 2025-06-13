@@ -34,16 +34,14 @@ private fun JoinView(modifier: Modifier = Modifier) {
 
     val navController = LocalNavScreenController.current
 
-    var idState = remember { mutableStateOf("") }
-    var pwState = remember { mutableStateOf("") }
+    val idState = remember { mutableStateOf("") }
+    val pwState = remember { mutableStateOf("") }
 
     Scaffold(
         containerColor = colorResource(id = R.color.textGrey),
         topBar = {
             DefaultAppBar(
-                onClick = {
-                    navController.popBackStack()
-                },
+                onClick = { navController.popBackStack() },
                 title = "회원가입"
 
             )
@@ -115,7 +113,9 @@ private fun JoinView(modifier: Modifier = Modifier) {
                 Spacer(modifier = modifier.height(30.dp))
 
                 DefaultBlackButton(title = "다음", onClick = {
-                    navController.navigate(NavRoutes.Exercise.route)
+                    navController.navigate(NavRoutes.Exercise.route) {
+                        popUpTo(NavRoutes.Join.route){ inclusive = true }
+                    }
                     //ExerciseScreen
                 })
 

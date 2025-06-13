@@ -4,7 +4,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -16,12 +18,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,34 +38,66 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.playhit.studio.R
+import com.playhit.studio.data.model.Exercise
 import com.playhit.studio.presentation.components.DefaultAppBar
-import com.playhit.studio.presentation.theme.Studio100PercentTheme
+import com.playhit.studio.presentation.components.DefaultBlackButton
+import com.playhit.studio.presentation.router.LocalNavScreenController
 
 
 @Composable
-fun ExerciseScreen() {
-    Studio100PercentTheme {
-        ExerciseView()
+fun ExerciseScreen(
+    viewModel: ExerciseViewModel = hiltViewModel()
+) {
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchExercise()
     }
+
+    if (viewModel.list.isEmpty() &&
+        viewModel.state == ViewModelState.Loading
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+
+            CircularProgressIndicator(
+                modifier = Modifier.size(35.dp)
+            )
+
+        }
+    } else {
+        ExerciseView(viewModel.list)
+    }
+
+
 }
 
 @Composable
-fun ExerciseView() {
+fun ExerciseView(
+    list: List<Exercise>
+) {
+
+    var selectedExercises by remember { mutableStateOf(setOf<Int>()) }
+    val navController = LocalNavScreenController.current
+
     Scaffold(
         containerColor = colorResource(R.color.textGrey),
         topBar = {
-            val navController = rememberNavController()
-
             DefaultAppBar(
                 onClick = {
                     navController.popBackStack()
+                    /*navController.navigate(NavRoutes.Exercise.route) {
+                        //popUpTo(NavRoutes.Login.route) { inclusive = true } // 또는 Join.route, Terms.route 등 기준에 맞게
+                    }*/
                 },
                 title = "선호하는 운동"
             )
         },
         content = { innerPadding ->
+
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
@@ -71,15 +112,40 @@ fun ExerciseView() {
                 Spacer(modifier = Modifier.height(14.dp))
 
                 LazyVerticalGrid(
+                    modifier = Modifier.weight(1f),
                     columns = GridCells.Adaptive(minSize = 120.dp),
                     contentPadding = PaddingValues(17.dp),
                     verticalArrangement = Arrangement.spacedBy(17.dp),
                     horizontalArrangement = Arrangement.spacedBy(17.dp)
                 ) {
-                    items(10) {
-                        ExerciseGridItem()
+
+                    items(list, key = { it.id }) { exerciseInfo ->
+                        val isSelected = selectedExercises.contains(exerciseInfo.id)
+                        ExerciseGridItem(
+                            exercise = exerciseInfo,
+                            onTapState = isSelected,
+                            modifier = Modifier.clickable {
+                                selectedExercises = if (isSelected) {
+                                    selectedExercises - exerciseInfo.id
+                                } else {
+                                    selectedExercises + exerciseInfo.id
+                                }
+                            }
+                        )
                     }
                 }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                DefaultBlackButton(
+                    title = "가입하기",
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    onClick = {
+                        navController.popBackStack()
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
 
             }
 
@@ -90,37 +156,48 @@ fun ExerciseView() {
 @Preview
 @Composable
 fun ExercisePreView() {
-    ExerciseView()
+    ExerciseView(list = listOf())
 }
 
-@Preview
 @Composable
-fun ExerciseGridItem() {
+fun ExerciseGridItem(
+    exercise: Exercise,
+    onTapState: Boolean = false,
+    modifier: Modifier = Modifier
+) {
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .aspectRatio(1f)
             .fillMaxWidth()
-            .background(color = Color.Blue)
             .border(
                 border = BorderStroke(
                     width = 3.dp,
-                    color = colorResource(R.color.yellow)
-                )
+                    color = colorResource(if (onTapState) R.color.yellow else R.color.white),
+                ),
+                shape = RoundedCornerShape(8.dp)
             ),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        color = Color.White
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.White)
         ) {
             Image(
-                painter = painterResource(R.drawable.exercise_walk),
+                painter = painterResource(exercise.type.image),
                 modifier = Modifier.size(width = 70.dp, height = 55.dp),
-                contentDescription = "산책"
+                contentDescription = exercise.type.exerciseName
             )
+
             Spacer(modifier = Modifier.height(9.dp))
-            Text("산책", style = MaterialTheme.typography.bodyMedium)
+
+            Text(
+                exercise.type.exerciseName,
+                style = MaterialTheme.typography.bodyMedium
+            )
 
 
         }
