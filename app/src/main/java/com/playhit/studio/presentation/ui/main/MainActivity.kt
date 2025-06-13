@@ -10,6 +10,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -20,6 +22,7 @@ import com.playhit.studio.presentation.router.LocalNavScreenController
 import com.playhit.studio.presentation.router.NavRoutes
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
 import com.playhit.studio.presentation.ui.exercise.ExerciseScreen
+import com.playhit.studio.presentation.ui.find.FindMainScreen
 import com.playhit.studio.presentation.ui.join.JoinScreen
 import com.playhit.studio.presentation.ui.login.LoginScreen
 import com.playhit.studio.presentation.ui.splash.CustomSplashScreen
@@ -44,13 +47,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun myApp() {
     Log.d("MY_LOG", "Running on Android: ${android.os.Build.MODEL}")
-    myLocalProvider {
+    MyLocalProvider {
         MyNavHost()
     }
 }
 
 @Composable
-fun myLocalProvider(content: @Composable () -> Unit) {
+fun MyLocalProvider(content: @Composable () -> Unit) {
     val navController = rememberNavController()
     CompositionLocalProvider(LocalNavScreenController provides navController) {
         content()
@@ -70,6 +73,8 @@ fun MyNavHost() {
     )
 
 
+
+
     NavHost(navController = navController, startDestination = NavRoutes.Splash.route) {
         composable(NavRoutes.Splash.route) {
             LaunchedEffect(Unit) {
@@ -83,31 +88,86 @@ fun MyNavHost() {
         }
 
         composable(NavRoutes.Login.route,
-            enterTransition = { inAnimation },
-            exitTransition = { outAnimation }
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeIn(animationSpec = tween(durationMillis = 300))
+            }, popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+            }
+            /*enterTransition = { inAnimation },
+            exitTransition = { outAnimation }*/
         ) {
             LoginScreen()
         }
 
         composable(NavRoutes.Terms.route,
-            enterTransition = { inAnimation },
-            exitTransition = { outAnimation }
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeIn(animationSpec = tween(durationMillis = 300))
+            }, popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+            }
         ) {
             TermsScreen()
         }
 
+        composable(NavRoutes.Find.route + "/{initialState}",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeIn(animationSpec = tween(durationMillis = 300))
+            }, popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+            }
+        ) {
+            Log.d("Find", "Find initialState ${it.arguments?.getString("initialState")}")
+            FindMainScreen(initialState = it.arguments?.getString("initialState")?.toInt() ?: 0)
+        }
+
         composable(
             NavRoutes.Join.route,
-            enterTransition = { inAnimation },
-            exitTransition = { outAnimation },
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeIn(animationSpec = tween(durationMillis = 300))
+            }, popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+            }
         ) {
             JoinScreen()
         }
 
         composable(
             NavRoutes.Exercise.route,
-            enterTransition = { inAnimation },
-            exitTransition = { outAnimation },
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeIn(animationSpec = tween(durationMillis = 300))
+            }, popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+            }
         ) {
             ExerciseScreen()
         }

@@ -79,7 +79,6 @@ fun ExerciseScreen(
 fun ExerciseView(
     list: List<Exercise>
 ) {
-
     var selectedExercises by remember { mutableStateOf(setOf<Int>()) }
     val navController = LocalNavScreenController.current
 
@@ -89,9 +88,6 @@ fun ExerciseView(
             DefaultAppBar(
                 onClick = {
                     navController.popBackStack()
-                    /*navController.navigate(NavRoutes.Exercise.route) {
-                        //popUpTo(NavRoutes.Login.route) { inclusive = true } // 또는 Join.route, Terms.route 등 기준에 맞게
-                    }*/
                 },
                 title = "선호하는 운동"
             )
@@ -121,6 +117,7 @@ fun ExerciseView(
 
                     items(list, key = { it.id }) { exerciseInfo ->
                         val isSelected = selectedExercises.contains(exerciseInfo.id)
+
                         ExerciseGridItem(
                             exercise = exerciseInfo,
                             onTapState = isSelected,

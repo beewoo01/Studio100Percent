@@ -43,9 +43,7 @@ private fun JoinView(modifier: Modifier = Modifier) {
             DefaultAppBar(
                 onClick = { navController.popBackStack() },
                 title = "회원가입"
-
             )
-
         },
         content = { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding).padding(horizontal = 20.dp)) {

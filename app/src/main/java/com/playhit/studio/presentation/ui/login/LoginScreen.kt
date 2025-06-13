@@ -92,7 +92,10 @@ private fun LoginView(modifier: Modifier = Modifier) {
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(
-                onClick = {},
+                onClick = {
+                    navController.navigate(NavRoutes.Find.route + "/0")
+                    //navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}")
+                },
             ) {
                 Text(
                     text = "아이디 찾기",
@@ -106,7 +109,9 @@ private fun LoginView(modifier: Modifier = Modifier) {
             )
 
             TextButton(
-                onClick = {},
+                onClick = {
+                    navController.navigate(NavRoutes.Find.route + "/1")
+                },
             ) {
                 Text(
                     text = "비밀번호 찾기",
@@ -166,7 +171,6 @@ private fun LoginView(modifier: Modifier = Modifier) {
         Button(
             onClick = {
                 navController.navigate(NavRoutes.Terms.route)
-                //PokemonDetail.route + "/${pokemonCardInfo.pokedexId}")
             },
             shape = RoundedCornerShape(50),
             modifier = Modifier

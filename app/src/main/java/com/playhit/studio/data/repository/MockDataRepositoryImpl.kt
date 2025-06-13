@@ -8,6 +8,7 @@ import javax.inject.Inject
 class MockDataRepositoryImpl @Inject constructor(
     private val mockDataClient: MockDataClient
 ) : MockDataRepository {
+
     override fun getExerciseMockData(): List<Exercise> =
         mockDataClient.getRunningMockData()
 
