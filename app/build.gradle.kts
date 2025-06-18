@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
+    kotlin("plugin.serialization") version "1.9.10"
     kotlin("kapt")
 //    id("com.google.dagger.hilt.android")
 //    id("com.google.devtools.ksp")
@@ -65,6 +66,11 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.kotlinx.serialization.json)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 

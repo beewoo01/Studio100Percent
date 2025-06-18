@@ -15,6 +15,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -23,9 +24,9 @@ import com.playhit.studio.presentation.router.NavRoutes
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
 import com.playhit.studio.presentation.ui.exercise.ExerciseScreen
 import com.playhit.studio.presentation.ui.find.FindMainScreen
-import com.playhit.studio.presentation.ui.home.HomeScreen
 import com.playhit.studio.presentation.ui.join.JoinScreen
 import com.playhit.studio.presentation.ui.login.LoginScreen
+import com.playhit.studio.presentation.ui.main.MainScreen
 import com.playhit.studio.presentation.ui.splash.CustomSplashScreen
 import com.playhit.studio.presentation.ui.terms.TermsScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -187,7 +188,7 @@ fun MyNavHost() {
                 ) + fadeOut(animationSpec = tween(durationMillis = 300))
             }
         ) {
-            HomeScreen()
+            MainScreen(modifier = Modifier)
         }
 
         /*composable(NavRoutes.PokemonDetail.route + "/{pokedexId}",
