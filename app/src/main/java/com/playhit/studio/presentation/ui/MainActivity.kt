@@ -1,4 +1,4 @@
-package com.playhit.studio.presentation.ui.main
+package com.playhit.studio.presentation.ui
 
 import android.os.Bundle
 import android.util.Log
