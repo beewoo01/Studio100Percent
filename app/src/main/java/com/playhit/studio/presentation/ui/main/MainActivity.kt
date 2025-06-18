@@ -23,6 +23,7 @@ import com.playhit.studio.presentation.router.NavRoutes
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
 import com.playhit.studio.presentation.ui.exercise.ExerciseScreen
 import com.playhit.studio.presentation.ui.find.FindMainScreen
+import com.playhit.studio.presentation.ui.home.HomeScreen
 import com.playhit.studio.presentation.ui.join.JoinScreen
 import com.playhit.studio.presentation.ui.login.LoginScreen
 import com.playhit.studio.presentation.ui.splash.CustomSplashScreen
@@ -134,7 +135,6 @@ fun MyNavHost() {
                 ) + fadeOut(animationSpec = tween(durationMillis = 300))
             }
         ) {
-            Log.d("Find", "Find initialState ${it.arguments?.getString("initialState")}")
             FindMainScreen(initialState = it.arguments?.getString("initialState")?.toInt() ?: 0)
         }
 
@@ -170,6 +170,24 @@ fun MyNavHost() {
             }
         ) {
             ExerciseScreen()
+        }
+
+        composable(
+            NavRoutes.Home.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeIn(animationSpec = tween(durationMillis = 300))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+            }
+        ) {
+            HomeScreen()
         }
 
         /*composable(NavRoutes.PokemonDetail.route + "/{pokedexId}",

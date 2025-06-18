@@ -183,8 +183,11 @@ fun FindMainScreen(
                     callback = {
                         showDialog = false
 
-                        if (dialogResult["status"] != null){
-                            Log.d("dialogResult[\"status\"]", " dialogResult[\"status\"] ${dialogResult["status"]}")
+                        if (dialogResult["status"] != null) {
+                            Log.d(
+                                "dialogResult[\"status\"]",
+                                " dialogResult[\"status\"] ${dialogResult["status"]}"
+                            )
                         }
                         if ((dialogResult["status"] ?: false) as Boolean) {
                             navController.popBackStack()
@@ -224,7 +227,6 @@ private fun FindId(
         Spacer(modifier = Modifier.height(30.dp))
 
         DefaultBlackButton(
-            modifier = modifier.padding(horizontal = 20.dp),
             title = "아이디 찾기",
             onClick = {
                 callback(idState.value, emailState.value)
@@ -270,7 +272,6 @@ private fun FindPw(
         Spacer(modifier = Modifier.height(30.dp))
 
         DefaultBlackButton(
-            modifier = modifier.padding(horizontal = 20.dp),
             title = "비밀번호 변경",
             onClick = { callback(idState.value, phoneState.value, emailState.value) }
         )
@@ -307,7 +308,6 @@ private fun ChangePw(
         Spacer(modifier = Modifier.height(30.dp))
 
         DefaultBlackButton(
-            modifier = modifier.padding(horizontal = 20.dp),
             title = "비밀번호 변경",
             onClick = {
                 if (pwState.value != pwConfirmState.value) {
