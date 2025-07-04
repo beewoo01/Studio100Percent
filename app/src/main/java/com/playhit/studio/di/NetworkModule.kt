@@ -1,5 +1,6 @@
 package com.playhit.studio.di
 
+import com.playhit.studio.BuildConfig
 import com.playhit.studio.data.source.remote.JamendoAPIClient
 import com.playhit.studio.data.source.remote.JamendoAPIService
 import dagger.Module
@@ -12,6 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -32,7 +34,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideJson(): Json = Json {
-        ignoreUnknownKeys = true
+        ignoreUnknownKeys = true // 알 수 없는 필드 무시
     }
 
     @Provides
@@ -50,6 +52,10 @@ object NetworkModule {
     fun provideJamendoApiService(retrofit: Retrofit): JamendoAPIService {
         return retrofit.create(JamendoAPIService::class.java)
     }
+
+    @Provides
+    @Named("jamendo_client_id")
+    fun provideJamendoClientId(): String = BuildConfig.JAMENDO_CLIENT_ID
 
     @Provides
     @Singleton

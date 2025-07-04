@@ -1,4 +1,4 @@
-package com.playhit.studio.presentation.ui.home.search
+package com.playhit.studio.presentation.ui.home
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -17,10 +17,11 @@ enum class SearchViewModelState {
     Idle,
     Loading,
     Typing,
+    Loaded,
 }
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
+class HomeScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val usecase: SearchUsecase
 ) : ViewModel() {
@@ -38,7 +39,13 @@ class SearchViewModel @Inject constructor(
 
     private var offset = 0
 
+    fun typing() {
+        Log.d("HomeScreenViewModel", "typing")
+        state = SearchViewModelState.Typing
+    }
+
     fun search(search: String) {
+        Log.d("HomeScreenViewModel", "search")
         viewModelScope.launch {
             state = SearchViewModelState.Loading
 
@@ -49,7 +56,7 @@ class SearchViewModel @Inject constructor(
             ).collect {
                 list = it
                 offset += limit
-                state = SearchViewModelState.Idle
+                state = SearchViewModelState.Loaded
                 Log.d("SearchViewModel search","search $list")
             }
         }

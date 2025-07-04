@@ -14,8 +14,9 @@ data class TrackHeaders(
     val status: String,
     val code: Int,
     val error_message : String,
-    val results_count: Int,
-    val next: String?
+    val warnings : String = "",
+    val results_count: Int = 0,
+    val next: String? = null
 )
 
 @Serializable

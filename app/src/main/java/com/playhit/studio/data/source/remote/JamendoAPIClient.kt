@@ -12,9 +12,28 @@ class JamendoAPIClient @Inject constructor(
         limit: Int,
         offset: Int,
         search: String
-    ): TrackResponse = jamendoAPIService.searchTracks(
-        clientId = clientId, limit = limit, offset = offset, search = search
-    )
+    ): TrackResponse {
+        val response: TrackResponse = jamendoAPIService.searchTracks(
+            clientId = clientId, limit = limit, offset = offset, search = search
+        )
+        return response
 
+    }
 
+    suspend fun fetchTracks(
+        clientId: String,
+        format: String,
+        limit: Int,
+        fuzzytags: String,
+        include: String,
+    ): TrackResponse {
+        val response: TrackResponse = jamendoAPIService.fetchTracks(
+            clientId = clientId,
+            format = format,
+            limit = limit,
+            fuzzytags = fuzzytags,
+            include = include
+        )
+        return response
+    }
 }

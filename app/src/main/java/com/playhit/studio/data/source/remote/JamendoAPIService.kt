@@ -14,4 +14,14 @@ interface JamendoAPIService {
         @Query("offset") offset : Int = 0,
         @Query("search") search : String
     ) : TrackResponse
+
+    @GET("tracks/")
+    suspend fun fetchTracks(
+        @Query("client_id") clientId: String,
+        @Query("format") format: String = "json",
+        @Query("limit") limit: Int = 10,
+        @Query("fuzzytags") fuzzytags : String = "rock",
+        @Query("include") include : String = "musicinfo"
+    ) : TrackResponse
+
 }

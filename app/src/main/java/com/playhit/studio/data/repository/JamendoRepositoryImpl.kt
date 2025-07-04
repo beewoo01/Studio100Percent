@@ -1,24 +1,27 @@
 package com.playhit.studio.data.repository
-
 import android.util.Log
 import com.playhit.studio.data.model.Track
 import com.playhit.studio.data.model.TrackResponse
 import com.playhit.studio.data.source.remote.JamendoAPIClient
 import com.playhit.studio.domain.repository.JamendoRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Named
 
 class JamendoRepositoryImpl @Inject constructor(
-    private val jamendoAPIClient: JamendoAPIClient
+    private val jamendoAPIClient: JamendoAPIClient,
+    @Named("jamendo_client_id") private val clientId: String
 ) : JamendoRepository {
-    //https://api.jamendo.com/v3.0/tracks?client_id=b203ee59&format=json&limit=10&search=love
+
+
     override suspend fun searchTracks(
         search: String,
         limit: Int,
         offset: Int,
     ): Flow<List<Track>> = flow {
-        val clientId = "b203ee59"
 
         val data = jamendoAPIClient.searchTracks(
             clientId = clientId,
@@ -27,13 +30,33 @@ class JamendoRepositoryImpl @Inject constructor(
             search = search
         )
 
-        Log.d("searchTracks","data $data")
-
+        Log.d("searchTracks", "data $data")
         emit(mapToTrack(data = data))
+    }
+
+    override suspend fun fetchTracks(
+        clientId: String,
+        format: String,
+        limit: Int,
+        fuzzytags: String,
+        include: String
+    ): List<Track> = withContext(Dispatchers.IO) {
+
+        val data = jamendoAPIClient.fetchTracks(
+            clientId = clientId,
+            format = format,
+            limit = limit,
+            fuzzytags = fuzzytags,
+            include = include,
+        )
+
+        Log.d("fetchTracks", "data $data")
+        mapToTrack(data = data)
     }
 
     private fun mapToTrack(data: TrackResponse): List<Track> {
         return data.results.map {
+            Log.d("Track", it.toString())
             Track(
                 id = it.id,
                 name = it.name,
@@ -49,32 +72,5 @@ class JamendoRepositoryImpl @Inject constructor(
         }
 
     }
-
-
-    /*override fun getById(id: Int) : Flow<PokemonInfo> = flow {
-        val data = pokedexApiClient.fetchPokemonDataById(id.toString())
-        emit(mapToPokemonInfo(data))
-    }
-
-
-    override fun getByName(name: String): Flow<PokemonInfo> = flow {
-        val data = pokedexApiClient.fetchPokemonDataByName(name.lowercase())
-        emit(mapToPokemonInfo(data))
-    }
-
-    private fun mapToPokemonInfo(data: PokemonData) : PokemonInfo {
-        return PokemonInfo(
-            pokedexId = data.id,
-            name = data.name.capitalizeFirstChar(),
-            imageUrl = data.sprites.frontDefault,
-            gifImageUrl = data.sprites.other.showdown.frontDefault,
-            types = data.types.map {
-                PokemonType.valueOf(it.type.name.capitalizeFirstChar())
-            },
-            height = data.height,
-            weight = data.weight,
-            abilities = data.abilities.map { it.ability.name }
-        )
-    }*/
 }
 

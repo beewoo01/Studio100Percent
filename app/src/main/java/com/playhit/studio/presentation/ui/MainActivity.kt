@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun myApp() {
     Log.d("MY_LOG", "Running on Android: ${android.os.Build.MODEL}")
+
     MyLocalProvider {
         MyNavHost()
     }
@@ -73,9 +74,6 @@ fun MyNavHost() {
     val outAnimation = scaleOut(animationSpec = tween(300), targetScale = 0.92f) + fadeOut(
         animationSpec = tween(300)
     )
-
-
-
 
     NavHost(navController = navController, startDestination = NavRoutes.Splash.route) {
         composable(NavRoutes.Splash.route) {

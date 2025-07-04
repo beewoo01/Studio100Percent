@@ -10,4 +10,12 @@ interface JamendoRepository {
         offset: Int,
     ): Flow<List<Track>>
 
+    suspend fun fetchTracks(
+        clientId: String,
+        format: String,
+        limit: Int,
+        fuzzytags : String,
+        include : String,
+    ) : List<Track>
+
 }

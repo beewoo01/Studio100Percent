@@ -4,15 +4,19 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,30 +29,48 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.playhit.studio.R
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
-import com.playhit.studio.presentation.ui.home.search.SearchViewModel
+import com.playhit.studio.presentation.ui.home.home.HomeContainer
+import com.playhit.studio.presentation.ui.home.search.SearchResultContainer
+import com.playhit.studio.utils.CircleProgress
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier.padding(horizontal = 20.dp),
-    viewModel : SearchViewModel = hiltViewModel()
+    viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
 
-    var searchData by remember { mutableStateOf("Hello") }
+    var searchData by remember { mutableStateOf("") }
+
+    val focusManger = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column {
         Spacer(modifier = modifier.height(20.dp))
         CustomOutlinedTextField(
             value = searchData,
             onValueChange = { searchData = it },
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    Log.d("HomeScreen", "onDone")
+                    viewModel.search(search = searchData)
+                    keyboardController?.hide()
+                    focusManger.clearFocus()
+                }
+            ),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             modifier = modifier,
             trailingIcon = {
                 IconButton(
@@ -67,8 +89,22 @@ fun HomeScreen(
                 }
             }
         )
+
         Spacer(modifier = modifier.height(18.dp))
-        Text("검색결과 ${viewModel.list.count()}개")
+
+        Box(
+            modifier = Modifier
+                .padding()
+                .fillMaxSize()
+        ) {
+            when (viewModel.state) {
+                SearchViewModelState.Idle -> HomeContainer(list = viewModel.list)
+                SearchViewModelState.Loading -> CircleProgress(modifier = modifier.fillMaxSize())
+                SearchViewModelState.Typing -> Box(modifier = modifier)
+                SearchViewModelState.Loaded -> SearchResultContainer()
+            }
+        }
+
     }
 }
 
@@ -89,11 +125,19 @@ fun CustomOutlinedTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     label: String = "",
-    trailingIcon: @Composable (() -> Unit)? = null
+    trailingIcon: @Composable (() -> Unit)? = null,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
+        keyboardActions = keyboardActions,
+        keyboardOptions = keyboardOptions,
+        cursorBrush = Brush.verticalGradient(
+            0.00f to Color.White,
+            0.35f to Color.White,
+        ),
         modifier = modifier
             .fillMaxWidth()
             .background(Color.Transparent),
