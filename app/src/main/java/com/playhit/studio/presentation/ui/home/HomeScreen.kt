@@ -76,9 +76,7 @@ fun HomeScreen(
                 IconButton(
                     modifier = Modifier.padding(end = 10.dp),
                     onClick = {
-                        Log.d("G", "IconButton Click")
                         viewModel.search(search = searchData)
-                        Log.d("ViewModelList", "${viewModel.list}")
                     }) {
                     Icon(
                         painter = painterResource(R.drawable.icon_search),
@@ -98,7 +96,7 @@ fun HomeScreen(
                 .fillMaxSize()
         ) {
             when (viewModel.state) {
-                SearchViewModelState.Idle -> HomeContainer(list = viewModel.list)
+                SearchViewModelState.Idle -> HomeContainer(list = viewModel.recommendList)
                 SearchViewModelState.Loading -> CircleProgress(modifier = modifier.fillMaxSize())
                 SearchViewModelState.Typing -> Box(modifier = modifier)
                 SearchViewModelState.Loaded -> SearchResultContainer()

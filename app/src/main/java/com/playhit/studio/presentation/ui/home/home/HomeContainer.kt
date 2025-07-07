@@ -25,6 +25,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.playhit.studio.R
 import com.playhit.studio.data.model.Track
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
@@ -66,9 +67,8 @@ fun HomeContainer(
                         modifier = modifier.padding(horizontal = 20.dp)
                     )
                 }
-                items(10) { index ->
-
-                    HomeMusicItem(modifier = modifier)
+                items(list.size) { index ->
+                    HomeMusicItem(modifier = modifier, model = list[index])
                     HorizontalDivider(
                         color = colorResource(R.color.border),
                         modifier = modifier.padding(horizontal = 20.dp)
@@ -96,7 +96,11 @@ fun HomeMusicItem(modifier: Modifier = Modifier, model: Track? = null) {
                 .size(90.dp)
                 .background(color = Color.White)
         ) {
-
+            AsyncImage(
+                model = "${model?.album_image}",
+                contentDescription = "Network image",
+                modifier = Modifier.size(100.dp)
+            )
         }
 
         Spacer(modifier = modifier.width(9.dp))

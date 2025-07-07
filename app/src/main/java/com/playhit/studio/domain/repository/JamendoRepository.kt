@@ -11,9 +11,8 @@ interface JamendoRepository {
     ): Flow<List<Track>>
 
     suspend fun fetchTracks(
-        clientId: String,
-        format: String,
-        limit: Int,
+        format: String?,
+        limit: Int?,
         fuzzytags : String,
         include : String,
     ) : List<Track>

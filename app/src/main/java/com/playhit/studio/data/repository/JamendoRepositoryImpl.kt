@@ -35,9 +35,8 @@ class JamendoRepositoryImpl @Inject constructor(
     }
 
     override suspend fun fetchTracks(
-        clientId: String,
-        format: String,
-        limit: Int,
+        format: String?,
+        limit: Int?,
         fuzzytags: String,
         include: String
     ): List<Track> = withContext(Dispatchers.IO) {

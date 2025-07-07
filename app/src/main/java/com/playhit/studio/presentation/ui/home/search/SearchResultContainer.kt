@@ -15,6 +15,6 @@ fun SearchResultContainer(
     viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     Column(modifier = modifier) {
-        Text("검색결과 ${viewModel.list.count()}개")
+        Text("검색결과 ${viewModel.searchList.count()}개")
     }
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.playhit.studio.data.model.Track
+import com.playhit.studio.domain.usecase.RecommendTrackUsecase
 import com.playhit.studio.domain.usecase.SearchUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,10 +24,11 @@ enum class SearchViewModelState {
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val usecase: SearchUsecase
+    private val searchUsecase: SearchUsecase,
+    private val recommendUsecase: RecommendTrackUsecase,
 ) : ViewModel() {
 
-    var list by mutableStateOf<List<Track>>(emptyList())
+    var searchList by mutableStateOf<List<Track>>(emptyList())
         private set
 
     var state by mutableStateOf(SearchViewModelState.Idle)
@@ -35,13 +37,33 @@ class HomeScreenViewModel @Inject constructor(
     var needLoadMore by mutableStateOf(true)
         private set
 
+
+    var recommendList by mutableStateOf<List<Track>>(emptyList())
+        private set
+
     private val limit = 20
 
     private var offset = 0
 
+
+    init {
+        execute()
+    }
+
     fun typing() {
         Log.d("HomeScreenViewModel", "typing")
         state = SearchViewModelState.Typing
+    }
+
+    private fun execute() {
+        Log.d("HomeScreenViewModel", "execute")
+        viewModelScope.launch {
+            recommendList = recommendUsecase.invoke(
+                limit = limit,
+                fuzzytags = "rock",
+                include = "musicinfo"
+            )
+        }
     }
 
     fun search(search: String) {
@@ -49,15 +71,15 @@ class HomeScreenViewModel @Inject constructor(
         viewModelScope.launch {
             state = SearchViewModelState.Loading
 
-            usecase.search(
+            searchUsecase.search(
                 search = search,
                 limit = limit,
                 offset = offset
             ).collect {
-                list = it
+                searchList = it
                 offset += limit
                 state = SearchViewModelState.Loaded
-                Log.d("SearchViewModel search","search $list")
+                Log.d("SearchViewModel search", "search $searchList")
             }
         }
     }
