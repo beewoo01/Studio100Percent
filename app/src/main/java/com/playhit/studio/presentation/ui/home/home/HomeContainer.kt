@@ -63,6 +63,7 @@ fun HomeContainer(
         Spacer(modifier = modifier.height(9.dp))
         Box(
             modifier = modifier
+                .padding(horizontal = 20.dp)
                 .weight(1f)
                 .align(alignment = Alignment.CenterHorizontally)
         ) {
@@ -70,14 +71,12 @@ fun HomeContainer(
                 item {
                     HorizontalDivider(
                         color = colorResource(R.color.border),
-                        modifier = modifier.padding(horizontal = 20.dp)
                     )
                 }
                 items(list.size) { index ->
                     MusicItem(modifier = modifier, model = list[index])
                     HorizontalDivider(
                         color = colorResource(R.color.border),
-                        modifier = modifier.padding(horizontal = 20.dp)
                     )
                 }
             }

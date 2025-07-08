@@ -52,9 +52,9 @@ fun SearchResultContainer(
                     color = colorResource(R.color.border),
                 )
             }
-            items(viewModel.searchList.size) {
+            items(viewModel.searchList.reversed().size) {
                 MusicItem(
-                    model = viewModel.searchList[it]
+                    model = viewModel.searchList.reversed()[it]
                 )
             }
         }
