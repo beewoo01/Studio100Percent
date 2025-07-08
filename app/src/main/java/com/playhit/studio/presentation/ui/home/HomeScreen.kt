@@ -96,7 +96,11 @@ fun HomeScreen(
                 .fillMaxSize()
         ) {
             when (viewModel.state) {
-                SearchViewModelState.Idle -> HomeContainer(list = viewModel.recommendList)
+                SearchViewModelState.Idle -> HomeContainer(
+                    list = viewModel.recommendList,
+                    exerciseTypes = viewModel.exerciseList
+                )
+
                 SearchViewModelState.Loading -> CircleProgress(modifier = modifier.fillMaxSize())
                 SearchViewModelState.Typing -> Box(modifier = modifier)
                 SearchViewModelState.Loaded -> SearchResultContainer()

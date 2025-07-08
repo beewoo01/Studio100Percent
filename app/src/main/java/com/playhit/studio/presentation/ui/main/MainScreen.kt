@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -144,7 +146,18 @@ fun DrawerContent(
             HorizontalDivider()
 
             NavigationDrawerItem(
-                label = { Text("메인") },
+                colors = NavigationDrawerItemDefaults.colors(
+                    selectedIconColor = colorResource(R.color.black),
+                    unselectedIconColor = colorResource(R.color.black),
+                    selectedTextColor = colorResource(R.color.black),
+                    unselectedTextColor = colorResource(R.color.black),
+                ),
+                label = {
+                    Text(
+                        "메인",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                },
                 selected = false,
                 icon = {
                     Icon(
@@ -159,7 +172,18 @@ fun DrawerContent(
             )
 
             NavigationDrawerItem(
-                label = { Text("보관함") },
+                colors = NavigationDrawerItemDefaults.colors(
+                    selectedIconColor = colorResource(R.color.black),
+                    unselectedIconColor = colorResource(R.color.black),
+                    selectedTextColor = colorResource(R.color.black),
+                    unselectedTextColor = colorResource(R.color.black),
+                ),
+                label = {
+                    Text(
+                        "보관함",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                },
                 selected = false,
                 icon = {
                     Icon(
@@ -174,7 +198,18 @@ fun DrawerContent(
             )
 
             NavigationDrawerItem(
-                label = { Text("탐색") },
+                colors = NavigationDrawerItemDefaults.colors(
+                    selectedIconColor = colorResource(R.color.black),
+                    unselectedIconColor = colorResource(R.color.black),
+                    selectedTextColor = colorResource(R.color.black),
+                    unselectedTextColor = colorResource(R.color.black),
+                ),
+                label = {
+                    Text(
+                        "탐색",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                },
                 selected = false,
                 icon = {
                     Icon(
@@ -189,7 +224,18 @@ fun DrawerContent(
             )
 
             NavigationDrawerItem(
-                label = { Text("취향 맞춤 자동 재생") },
+                colors = NavigationDrawerItemDefaults.colors(
+                    selectedIconColor = colorResource(R.color.black),
+                    unselectedIconColor = colorResource(R.color.black),
+                    selectedTextColor = colorResource(R.color.black),
+                    unselectedTextColor = colorResource(R.color.black),
+                ),
+                label = {
+                    Text(
+                        "취향 맞춤 자동 재생",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                },
                 selected = false,
                 icon = {
                     Icon(
@@ -204,7 +250,18 @@ fun DrawerContent(
             )
 
             NavigationDrawerItem(
-                label = { Text("내정보") },
+                colors = NavigationDrawerItemDefaults.colors(
+                    selectedIconColor = colorResource(R.color.black),
+                    unselectedIconColor = colorResource(R.color.black),
+                    selectedTextColor = colorResource(R.color.black),
+                    unselectedTextColor = colorResource(R.color.black),
+                ),
+                label = {
+                    Text(
+                        "내정보",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                },
                 selected = false,
                 icon = {
                     Icon(

@@ -158,9 +158,9 @@ fun ExercisePreView() {
 
 @Composable
 fun ExerciseGridItem(
+    modifier: Modifier = Modifier,
     exercise: Exercise,
     onTapState: Boolean = false,
-    modifier: Modifier = Modifier
 ) {
     Surface(
         modifier = modifier

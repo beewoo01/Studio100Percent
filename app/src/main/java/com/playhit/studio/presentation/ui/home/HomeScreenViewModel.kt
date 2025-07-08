@@ -7,7 +7,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.playhit.studio.data.model.Exercise
 import com.playhit.studio.data.model.Track
+import com.playhit.studio.domain.usecase.ExerciseUsecase
 import com.playhit.studio.domain.usecase.RecommendTrackUsecase
 import com.playhit.studio.domain.usecase.SearchUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +28,7 @@ class HomeScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val searchUsecase: SearchUsecase,
     private val recommendUsecase: RecommendTrackUsecase,
+    private val exerciseUsecase: ExerciseUsecase
 ) : ViewModel() {
 
     var searchList by mutableStateOf<List<Track>>(emptyList())
@@ -39,6 +42,9 @@ class HomeScreenViewModel @Inject constructor(
 
 
     var recommendList by mutableStateOf<List<Track>>(emptyList())
+        private set
+
+    var exerciseList by mutableStateOf<List<Exercise>>(emptyList())
         private set
 
     private val limit = 20
@@ -63,6 +69,8 @@ class HomeScreenViewModel @Inject constructor(
                 fuzzytags = "rock",
                 include = "musicinfo"
             )
+
+            exerciseList = exerciseUsecase.execute()
         }
     }
 
