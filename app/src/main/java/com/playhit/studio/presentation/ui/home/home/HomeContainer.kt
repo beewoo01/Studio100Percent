@@ -1,7 +1,6 @@
 package com.playhit.studio.presentation.ui.home.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,13 +29,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
 import com.playhit.studio.R
 import com.playhit.studio.data.model.Exercise
 import com.playhit.studio.data.model.ExerciseType
 import com.playhit.studio.data.model.Track
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
+import com.playhit.studio.presentation.ui.home.component.MusicItem
 
 
 @Composable
@@ -77,7 +74,7 @@ fun HomeContainer(
                     )
                 }
                 items(list.size) { index ->
-                    HomeMusicItem(modifier = modifier, model = list[index])
+                    MusicItem(modifier = modifier, model = list[index])
                     HorizontalDivider(
                         color = colorResource(R.color.border),
                         modifier = modifier.padding(horizontal = 20.dp)
@@ -120,62 +117,6 @@ fun HomeContainer(
                 )
             }
 
-        }
-    }
-}
-
-@Preview
-@Composable
-fun HomeMusicItem(modifier: Modifier = Modifier, model: Track? = null) {
-    Row(
-        modifier = modifier
-            .height(110.dp)
-            .padding(
-                vertical = 8.6.dp,
-                horizontal = 20.dp
-            )
-    ) {
-        Box(
-            modifier = Modifier
-                .size(90.dp)
-                .background(color = Color.White)
-        ) {
-            AsyncImage(
-                model = "${model?.album_image}",
-                contentDescription = "Album image",
-                modifier = Modifier.size(100.dp)
-            )
-        }
-
-        Spacer(modifier = modifier.width(9.dp))
-
-        Column(
-            modifier = modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Top
-        ) {
-            Spacer(modifier = modifier.width(18.dp))
-
-            Text(
-                model?.name ?: "",
-                fontSize = 14.sp,
-                color = Color.White,
-            )
-
-            Spacer(modifier = modifier.width(7.dp))
-
-            Text(
-                model?.album_name ?: "",
-                fontSize = 15.sp,
-                color = colorResource(R.color.grey400),
-            )
-
-            Spacer(modifier = modifier.weight(1f))
-
-            Text(
-                model?.artist_name ?: "홍길동 (러닝)",
-                fontSize = 14.sp,
-                color = Color.White,
-            )
         }
     }
 }
