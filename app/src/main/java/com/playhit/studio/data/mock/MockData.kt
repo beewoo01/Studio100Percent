@@ -2,6 +2,8 @@ package com.playhit.studio.data.mock
 
 import com.playhit.studio.data.model.Exercise
 import com.playhit.studio.data.model.ExerciseType
+import com.playhit.studio.data.model.TrackComment
+import com.playhit.studio.data.model.User
 
 val mockExerciseList = listOf(
     Exercise(id = 1, type = ExerciseType.WALK),
@@ -14,6 +16,30 @@ val mockExerciseList = listOf(
     Exercise(id = 8, type = ExerciseType.SWIM)
 )
 
+val mockUsers = listOf(
+    User(userId = 1, userName = "Alice", userProfile = "https://foo.com/alice.png"),
+    User(userId = 2, userName = "Bob",   userProfile = "https://foo.com/bob.png"),
+)
+
+val mockComments: List<TrackComment> = listOf(
+    TrackComment(
+        commentId = 100,
+        comment   = "이 곡 진짜 좋네요!",
+        user      = mockUsers[0],
+        replies   = listOf(
+            TrackComment(
+                commentId = 101,
+                comment   = "222 공감합니다 😊",
+                user      = mockUsers[1]
+            )
+        )
+    ),
+    TrackComment(
+        commentId = 102,
+        comment   = "0:42 에서 드롭 미쳤다…",
+        user      = mockUsers[1]
+    )
+)
 
 val mockMusicContentJson = """
 {

@@ -1,6 +1,7 @@
 package com.playhit.studio.presentation.ui.main
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ButtonDefaults
@@ -34,17 +37,24 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.playhit.studio.R
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
+import com.playhit.studio.presentation.ui.home.CustomOutlinedTextField
 import com.playhit.studio.presentation.ui.home.HomeScreen
 import kotlinx.coroutines.launch
 
@@ -56,10 +66,18 @@ fun MainScreen(modifier: Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainView() {
+fun MainView(
+    viewModel: MainViewModel = hiltViewModel()
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val selectedItem = remember { mutableStateOf(DrawerMenuItem.HOME) }
+
+
+    var searchData by remember { mutableStateOf("") }
+
+    val focusManger = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -100,14 +118,51 @@ fun MainView() {
                 )
             }
         ) { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
+                Spacer(modifier = Modifier.height(20.dp))
+                CustomOutlinedTextField(
+                    value = searchData,
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    onValueChange = { searchData = it },
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            Log.d("HomeScreen", "onDone")
+                            viewModel.search(search = searchData)
+                            keyboardController?.hide()
+                            focusManger.clearFocus()
+                        }
+                    ),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    trailingIcon = {
+                        IconButton(
+                            modifier = Modifier.padding(end = 10.dp),
+                            onClick = {
+                                viewModel.search(search = searchData)
+                            }) {
+                            Icon(
+                                painter = painterResource(R.drawable.icon_search),
+                                contentDescription = "Search",
+                                modifier = Modifier.size(24.dp),
+                                tint = Color.White
+                            )
+                        }
+                    }
+                )
 
-            Box(modifier = Modifier.padding(padding)) {
-                when (selectedItem.value) {
-                    DrawerMenuItem.HOME -> HomeScreen()
-                    DrawerMenuItem.LIBRARY -> Text("보관함")
-                    DrawerMenuItem.EXPLORE -> Text("탐색")
-                    DrawerMenuItem.AUTOPLAY -> Text("취향 맞춤 자동 재생")
-                    DrawerMenuItem.MY_ACCOUNT -> Text("내 정보")
+                Spacer(modifier = Modifier.height(18.dp))
+                Box(modifier = Modifier) {
+                    when (selectedItem.value) {
+                        DrawerMenuItem.HOME -> HomeScreen()
+                        DrawerMenuItem.LIBRARY -> Text("보관함")
+                        DrawerMenuItem.EXPLORE -> Text("탐색")
+                        DrawerMenuItem.AUTOPLAY -> Text("취향 맞춤 자동 재생")
+                        DrawerMenuItem.MY_ACCOUNT -> Text("내 정보")
+                    }
+
                 }
 
             }

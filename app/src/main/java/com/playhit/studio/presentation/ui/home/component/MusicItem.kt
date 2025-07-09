@@ -1,6 +1,7 @@
 package com.playhit.studio.presentation.ui.home.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,13 +27,17 @@ import com.playhit.studio.data.model.Track
 
 @Preview
 @Composable
-fun MusicItem(modifier: Modifier = Modifier, model: Track? = null) {
+fun MusicItem(modifier: Modifier = Modifier, model: Track? = null, clickCallback : (Track) -> Unit = {}) {
     Row(
         modifier = modifier
             .height(110.dp)
             .padding(
                 vertical = 8.6.dp,
-            )
+            ).clickable {
+                if (model != null) {
+                    clickCallback(model)
+                }
+            }
     ) {
         Box(
             modifier = Modifier
