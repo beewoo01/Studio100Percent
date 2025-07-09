@@ -1,5 +1,6 @@
 package com.playhit.studio.presentation.ui.home.detail
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -266,7 +267,7 @@ fun MusicDetail(modifier: Modifier = Modifier, model: Track? = null) {
 
         HorizontalDivider()
 
-        MusicDetailSubContainer()
+        MusicDetailSubContainer(model = model)
 
     }
 }
@@ -285,7 +286,7 @@ fun MusicDetailPreview() {
 
 
 @Composable
-fun MusicDetailSubContainer() {
+fun MusicDetailSubContainer(model : Track?) {
     val tabs = listOf("가사", "댓글", "리스트")
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
 
@@ -298,7 +299,6 @@ fun MusicDetailSubContainer() {
                     modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTab]),
                     color = Color.White,
                 )
-
             }
         ) {
             tabs.forEachIndexed { index, title ->
@@ -310,33 +310,28 @@ fun MusicDetailSubContainer() {
             }
         }
 
+        Spacer(modifier = Modifier.height(15.dp))
+
         when (selectedTab) {
             0 -> Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(vertical = 20.dp)
             ) {
-                Text(
-                    "I do the same thing I told you that I never would " +
-                            "I told you I'd change, even when I knew I never could " +
-                            "I know that I can't find nobody else as good as you " +
-                            "I need you to stay, need you to stay, hey (oh) I get drunk, " +
-                            "wake up, I'm wasted still I realize the time that I wasted here " +
-                            "I feel like you can't feel the way I feel Oh, " +
-                            "I'll be f- up if you can't be right here Oh, ooh-woah" +
-                            " (oh, ooh-woah, ooh-woah) Oh, ooh-woah (oh, ooh-woah, ooh-woah) Oh, " +
-                            "ooh-woah (oh, ooh-woah, ooh-woah) Oh, I'll be f- up if you can't be " +
-                            "right here I do the same thing I told you that I never would I told you " +
-                            "I'd change, even when I knew I never could " +
-                            "I know that I can't find nobody else as good as you I need you to stay, need you to stay, hey I do the same thing I told you that I never would I told you I'd change, even when I knew I never could I know that I can't find nobody else as good as you I need you to stay, need you to stay, hey When I'm away from you, I miss your touch (ooh) You're the reason I believe in love It's been difficult for me to trust (ooh) And I'm afraid that I'ma f- it up Ain't no way that I can leave you stranded 'Cause you ain't ever left me empty-handed And you know that I know that I can't live without you So, baby, stay Oh, ooh-woah (oh, ooh-woah, ooh-woah) Oh, ooh-woah (oh, ooh-woah, ooh-woah) Oh, ooh-woah (oh, ooh-woah, ooh-woah) I'll be f- up if you can't be right here I do the same thing I told you that I never would I told you I'd change, even when I knew I never could I know that I can't find nobody else as good as you I need you to stay, need you to stay, hey I do the same thing I told you that I never would I told you I'd change, even when I knew I never could I know that I can't find nobody else as good as you I need you to stay, need you to stay, hey Woah-oh I need you to stay, need you to stay, hey"
-                )
+                Text(model?.lyrics ?: "")
             }
 
-            1 -> Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = Color.Yellow)
-            )
+            1 -> {
+                Log.d("selectedTab", "1111111")
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    Column() {
+                        Text("댓글 ${model?.comments?.size ?: 0}")
+                    }
+                }
+            }
 
             2 -> Box(
                 modifier = Modifier

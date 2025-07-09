@@ -31,6 +31,7 @@ data class Track(
     val releasedate : String,
     val album_image : String,
     val audio : String,
+    val lyrics : String = "",
     val comments : List<TrackComment> = emptyList()
 )
 
