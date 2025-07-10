@@ -9,8 +9,10 @@ data class Exercise(
 
 enum class ExerciseType(
     val exerciseName: String,
-    val image: Int
+    val image: Int,
+    val isWhite: Boolean? = false
 ) {
+
     WALK(
         exerciseName = "산책",
         image = R.drawable.exercise_walk

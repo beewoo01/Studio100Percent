@@ -11,6 +11,4 @@ class MockDataRepositoryImpl @Inject constructor(
 
     override fun getExerciseMockData(): List<Exercise> =
         mockDataClient.getRunningMockData()
-
-
 }

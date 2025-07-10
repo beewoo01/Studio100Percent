@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -43,9 +46,7 @@ import com.playhit.studio.presentation.router.NavRoutes
 
 @Composable
 fun LoginScreen() {
-
     LoginView()
-
 }
 
 @Composable
@@ -60,9 +61,11 @@ private fun LoginView(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .background(color = colorResource(R.color.textGrey))
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 20.dp)
+            .verticalScroll(rememberScrollState())
+            .imePadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
 
         Image(
@@ -94,7 +97,6 @@ private fun LoginView(modifier: Modifier = Modifier) {
             TextButton(
                 onClick = {
                     navController.navigate(NavRoutes.Find.route + "/0")
-                    //navController.navigate(NavRoutes.PokemonDetail.route + "/${pokemonCardInfo.pokedexId}")
                 },
             ) {
                 Text(
@@ -123,7 +125,9 @@ private fun LoginView(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(17.dp))
 
         DefaultBlackButton(
-            onClick = {},
+            onClick = {
+                navController.navigate(NavRoutes.Home.route)
+            },
             title = "로그인"
         )
 

@@ -24,6 +24,8 @@
     <color name="grey500">#898989</color>
     <color name="grey600">#696969</color>
 
+    <color name="border">#2F2F2F</color>
+
 
 
     <color name="alphaBg">#99000000</color>

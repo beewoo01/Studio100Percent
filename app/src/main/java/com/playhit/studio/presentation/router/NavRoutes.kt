@@ -7,4 +7,5 @@ sealed class NavRoutes(val route: String) {
     data object Join : NavRoutes("join")
     data object Exercise : NavRoutes("exercise")
     data object Find : NavRoutes("find")
+    data object Home : NavRoutes("home")
 }

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
+    kotlin("plugin.serialization") version "1.9.10"
     kotlin("kapt")
 //    id("com.google.dagger.hilt.android")
 //    id("com.google.devtools.ksp")
@@ -23,6 +24,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "JAMENDO_CLIENT_ID", "\"${property("JAMENDO_CLIENT_ID")}\"")
     }
 
     buildTypes {
@@ -43,6 +46,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -65,6 +69,11 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.kotlinx.serialization.json)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 

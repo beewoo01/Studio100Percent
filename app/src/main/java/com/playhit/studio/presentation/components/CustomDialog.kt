@@ -33,7 +33,6 @@ fun CustomDialog(
     buttonTitle : String = "확인",
     callback: () -> Unit = {}
 ) {
-
     Studio100PercentTheme {
         Dialog(
             onDismissRequest = {},

@@ -1,4 +1,4 @@
-package com.playhit.studio.presentation.ui.main
+package com.playhit.studio.presentation.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +15,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -25,6 +26,7 @@ import com.playhit.studio.presentation.ui.exercise.ExerciseScreen
 import com.playhit.studio.presentation.ui.find.FindMainScreen
 import com.playhit.studio.presentation.ui.join.JoinScreen
 import com.playhit.studio.presentation.ui.login.LoginScreen
+import com.playhit.studio.presentation.ui.main.MainScreen
 import com.playhit.studio.presentation.ui.splash.CustomSplashScreen
 import com.playhit.studio.presentation.ui.terms.TermsScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +49,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun myApp() {
     Log.d("MY_LOG", "Running on Android: ${android.os.Build.MODEL}")
+
     MyLocalProvider {
         MyNavHost()
     }
@@ -71,9 +74,6 @@ fun MyNavHost() {
     val outAnimation = scaleOut(animationSpec = tween(300), targetScale = 0.92f) + fadeOut(
         animationSpec = tween(300)
     )
-
-
-
 
     NavHost(navController = navController, startDestination = NavRoutes.Splash.route) {
         composable(NavRoutes.Splash.route) {
@@ -134,7 +134,6 @@ fun MyNavHost() {
                 ) + fadeOut(animationSpec = tween(durationMillis = 300))
             }
         ) {
-            Log.d("Find", "Find initialState ${it.arguments?.getString("initialState")}")
             FindMainScreen(initialState = it.arguments?.getString("initialState")?.toInt() ?: 0)
         }
 
@@ -170,6 +169,24 @@ fun MyNavHost() {
             }
         ) {
             ExerciseScreen()
+        }
+
+        composable(
+            NavRoutes.Home.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeIn(animationSpec = tween(durationMillis = 300))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+            }
+        ) {
+            MainScreen(modifier = Modifier)
         }
 
         /*composable(NavRoutes.PokemonDetail.route + "/{pokedexId}",
