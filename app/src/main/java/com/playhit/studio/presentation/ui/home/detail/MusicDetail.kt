@@ -334,13 +334,11 @@ fun MusicDetailSubContainer(model: Track?) {
 
                         Spacer(modifier = Modifier.height(15.dp))
 
-
-                        LazyColumn(modifier = Modifier.weight(1f)) {
+                        LazyColumn(modifier = Modifier.weight(1f).background(color = Color.Yellow)) {
                             items(model?.comments?.size ?: 0) { index ->
                                 CommentContainer(trackComment = model?.comments?.get(index))
                             }
                         }
-                        //CommentsContainer(trackComments = model?.comments ?: emptyList())
                     }
                 }
             }

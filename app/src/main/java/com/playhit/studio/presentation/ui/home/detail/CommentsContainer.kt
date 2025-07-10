@@ -5,13 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,16 +34,6 @@ import com.playhit.studio.data.model.TrackComment
 
 @Preview
 @Composable
-fun CommentsContainer(trackComments: List<TrackComment> = emptyList()) {
-    LazyColumn(modifier = Modifier.fillMaxHeight()) {
-        items(trackComments.size) {
-            CommentContainer(trackComment = trackComments[it])
-        }
-    }
-}
-
-@Preview
-@Composable
 fun CommentContainer(trackComment: TrackComment? = null) {
     Row(
         modifier = Modifier
@@ -54,30 +42,15 @@ fun CommentContainer(trackComment: TrackComment? = null) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column {
-            /*AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(trackComment?.user?.userProfile ?: "")
-                    .crossfade(true)
-                    .build(),
-                contentDescription = null,
-                placeholder = painterResource(R.drawable.placeholder_profile), // 로딩 중
-                error = painterResource(R.drawable.error_profile),             // 에러 시
-                modifier = Modifier
-                    .size(33.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )*/
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(trackComment?.user?.userProfile ?: "")
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
-                //placeholder = colorResource(R.color.white),
                 modifier = Modifier
                     .size(33.dp)
                     .clip(CircleShape)
-                    .background(color = Color.Red)
             )
             Spacer(modifier = Modifier.height(24.dp))
         }
