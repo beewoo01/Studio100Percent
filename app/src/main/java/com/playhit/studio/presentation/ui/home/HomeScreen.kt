@@ -37,7 +37,7 @@ fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
 
-    when(viewModel.state) {
+    when (viewModel.state) {
         HomeModelState.Idle -> CircleProgress(modifier = modifier.fillMaxSize())
         HomeModelState.Loading -> CircleProgress(modifier = modifier.fillMaxSize())
         HomeModelState.Loaded -> Box(
@@ -52,9 +52,12 @@ fun HomeScreen(
             )
         }
 
-        HomeModelState.Detail -> MusicDetail(
-            model = viewModel.selectedTrack
-        )
+        HomeModelState.Detail -> Box(modifier = modifier.fillMaxSize()) {
+            MusicDetail(
+                model = viewModel.selectedTrack
+            )
+        }
+
     }
 
 

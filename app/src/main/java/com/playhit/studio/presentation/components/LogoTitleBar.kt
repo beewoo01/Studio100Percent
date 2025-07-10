@@ -23,7 +23,7 @@ fun LogoTitleBar(modifier: Modifier = Modifier, title: String = "") {
         Image(
             painterResource(R.drawable.white_logo),
             modifier = Modifier.size(16.dp),
-            contentDescription = "logo",
+            contentDescription = "Studio logo",
         )
 
         Spacer(modifier = Modifier.width(width = 6.dp))
