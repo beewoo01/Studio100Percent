@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -286,7 +287,7 @@ fun MusicDetailPreview() {
 
 
 @Composable
-fun MusicDetailSubContainer(model : Track?) {
+fun MusicDetailSubContainer(model: Track?) {
     val tabs = listOf("가사", "댓글", "리스트")
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
 
@@ -323,12 +324,23 @@ fun MusicDetailSubContainer(model : Track?) {
 
             1 -> {
                 Log.d("selectedTab", "1111111")
+                Log.d("track info", model.toString())
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    Column() {
+                    Column(modifier = Modifier.fillMaxSize()) {
                         Text("댓글 ${model?.comments?.size ?: 0}")
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+
+                        LazyColumn(modifier = Modifier.weight(1f)) {
+                            items(model?.comments?.size ?: 0) { index ->
+                                CommentContainer(trackComment = model?.comments?.get(index))
+                            }
+                        }
+                        //CommentsContainer(trackComments = model?.comments ?: emptyList())
                     }
                 }
             }

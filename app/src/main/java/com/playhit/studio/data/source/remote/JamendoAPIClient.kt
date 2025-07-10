@@ -1,5 +1,6 @@
 package com.playhit.studio.data.source.remote
 
+import android.util.Log
 import com.playhit.studio.data.mock.mockComments
 import com.playhit.studio.data.model.Track
 import com.playhit.studio.data.model.TrackResponse
@@ -52,6 +53,8 @@ class JamendoAPIClient @Inject constructor(
                 comments = mockComments
             )
         }
+
+        Log.d("fetchTracks", "results is $results")
 
         return TrackResponse(
             headers = response.headers,
