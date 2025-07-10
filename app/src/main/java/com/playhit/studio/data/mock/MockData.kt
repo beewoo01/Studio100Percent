@@ -17,8 +17,8 @@ val mockExerciseList = listOf(
 )
 
 val mockUsers = listOf(
-    User(userId = 1, userName = "Alice", userProfile = "https://foo.com/alice.png"),
-    User(userId = 2, userName = "Bob",   userProfile = "https://foo.com/bob.png"),
+    User(userId = 1, userName = "Alice", userProfile = "https://ui-avatars.com/api/?font-size=0.33"),
+    User(userId = 2, userName = "Bob",   userProfile = "https://ui-avatars.com/api/?font-size=0.33"),
 )
 
 val mockComments: List<TrackComment> = listOf(
