@@ -31,4 +31,22 @@ data class Track(
     val releasedate : String,
     val album_image : String,
     val audio : String,
+    val lyrics : String = "",
+    val comments : List<TrackComment> = emptyList()
+)
+
+@Serializable
+data class TrackComment(
+    val commentId : Int,
+    val comment : String,
+    val user : User,
+    val replies : List<TrackComment> = emptyList()
+)
+
+
+@Serializable
+data class User(
+    val userId : Int,
+    val userName : String,
+    val userProfile : String,
 )

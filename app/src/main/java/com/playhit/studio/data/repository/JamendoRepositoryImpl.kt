@@ -66,7 +66,9 @@ class JamendoRepositoryImpl @Inject constructor(
                 position = it.position,
                 releasedate = it.releasedate,
                 album_image = it.album_image,
-                audio = it.audio
+                audio = it.audio,
+                lyrics = it.lyrics,
+                comments = it.comments
             )
         }
 

@@ -1,48 +1,33 @@
 package com.playhit.studio.presentation.ui.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.playhit.studio.R
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
+import com.playhit.studio.presentation.ui.home.detail.MusicDetail
 import com.playhit.studio.presentation.ui.home.home.HomeContainer
-import com.playhit.studio.presentation.ui.home.search.SearchResultContainer
 import com.playhit.studio.utils.CircleProgress
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,62 +37,30 @@ fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
 
-    var searchData by remember { mutableStateOf("") }
-
-    val focusManger = LocalFocusManager.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-
-    Column {
-        Spacer(modifier = modifier.height(20.dp))
-        CustomOutlinedTextField(
-            value = searchData,
-            onValueChange = { searchData = it },
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    Log.d("HomeScreen", "onDone")
-                    viewModel.search(search = searchData)
-                    keyboardController?.hide()
-                    focusManger.clearFocus()
-                }
-            ),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            modifier = modifier,
-            trailingIcon = {
-                IconButton(
-                    modifier = Modifier.padding(end = 10.dp),
-                    onClick = {
-                        viewModel.search(search = searchData)
-                    }) {
-                    Icon(
-                        painter = painterResource(R.drawable.icon_search),
-                        contentDescription = "Search",
-                        modifier = Modifier.size(24.dp),
-                        tint = Color.White
-                    )
-                }
-            }
-        )
-
-        Spacer(modifier = modifier.height(18.dp))
-
-        Box(
-            modifier = Modifier
-                .padding()
-                .fillMaxSize()
+    when (viewModel.state) {
+        HomeModelState.Idle -> CircleProgress(modifier = modifier.fillMaxSize())
+        HomeModelState.Loading -> CircleProgress(modifier = modifier.fillMaxSize())
+        HomeModelState.Loaded -> Box(
+            modifier = modifier.fillMaxSize()
         ) {
-            when (viewModel.state) {
-                SearchViewModelState.Idle -> HomeContainer(
-                    list = viewModel.recommendList,
-                    exerciseTypes = viewModel.exerciseList
-                )
+            HomeContainer(
+                list = viewModel.recommendList,
+                exerciseTypes = viewModel.exerciseList,
+                itemCallback = {
+                    viewModel.setTrack(it)
+                }
+            )
+        }
 
-                SearchViewModelState.Loading -> CircleProgress(modifier = Modifier.fillMaxSize())
-                SearchViewModelState.Typing -> Box(modifier = modifier)
-                SearchViewModelState.Loaded -> SearchResultContainer()
-            }
+        HomeModelState.Detail -> Box(modifier = modifier.fillMaxSize()) {
+            MusicDetail(
+                model = viewModel.selectedTrack
+            )
         }
 
     }
+
+
 }
 
 @Composable

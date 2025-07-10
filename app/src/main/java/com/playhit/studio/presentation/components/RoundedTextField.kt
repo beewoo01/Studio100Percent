@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.playhit.studio.R
 
 @Composable
-
 fun RoundedTextField(
     modifier: Modifier = Modifier,
     value: String,

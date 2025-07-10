@@ -3,7 +3,6 @@ package com.playhit.studio.presentation.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -19,15 +18,15 @@ import com.playhit.studio.R
 @Composable
 fun LogoTitleBar(modifier: Modifier = Modifier, title: String = "") {
     Row(
-        modifier = modifier.padding(horizontal = 20.dp)
+        modifier = modifier
     ) {
         Image(
             painterResource(R.drawable.white_logo),
-            modifier = modifier.size(16.dp),
-            contentDescription = "logo",
+            modifier = Modifier.size(16.dp),
+            contentDescription = "Studio logo",
         )
 
-        Spacer(modifier = modifier.width(width = 6.dp))
+        Spacer(modifier = Modifier.width(width = 6.dp))
 
         Text(
             title,
