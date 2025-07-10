@@ -101,7 +101,7 @@ fun HomeScreen(
                     exerciseTypes = viewModel.exerciseList
                 )
 
-                SearchViewModelState.Loading -> CircleProgress(modifier = modifier.fillMaxSize())
+                SearchViewModelState.Loading -> CircleProgress(modifier = Modifier.fillMaxSize())
                 SearchViewModelState.Typing -> Box(modifier = modifier)
                 SearchViewModelState.Loaded -> SearchResultContainer()
             }

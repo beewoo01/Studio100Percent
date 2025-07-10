@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +32,6 @@ fun MusicItem(modifier: Modifier = Modifier, model: Track? = null) {
             .height(110.dp)
             .padding(
                 vertical = 8.6.dp,
-                horizontal = 20.dp
             )
     ) {
         Box(
@@ -58,6 +58,8 @@ fun MusicItem(modifier: Modifier = Modifier, model: Track? = null) {
                 model?.name ?: "",
                 fontSize = 14.sp,
                 color = Color.White,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Spacer(modifier = modifier.width(7.dp))
@@ -66,6 +68,8 @@ fun MusicItem(modifier: Modifier = Modifier, model: Track? = null) {
                 model?.album_name ?: "",
                 fontSize = 15.sp,
                 color = colorResource(R.color.grey400),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Spacer(modifier = modifier.weight(1f))
@@ -74,6 +78,8 @@ fun MusicItem(modifier: Modifier = Modifier, model: Track? = null) {
                 model?.artist_name ?: "홍길동 (러닝)",
                 fontSize = 14.sp,
                 color = Color.White,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }

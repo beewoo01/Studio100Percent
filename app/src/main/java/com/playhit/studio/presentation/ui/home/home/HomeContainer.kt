@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,6 +32,7 @@ import com.playhit.studio.R
 import com.playhit.studio.data.model.Exercise
 import com.playhit.studio.data.model.ExerciseType
 import com.playhit.studio.data.model.Track
+import com.playhit.studio.presentation.components.LogoTitleBar
 import com.playhit.studio.presentation.theme.Studio100PercentTheme
 import com.playhit.studio.presentation.ui.home.component.MusicItem
 
@@ -63,6 +63,7 @@ fun HomeContainer(
         Spacer(modifier = modifier.height(9.dp))
         Box(
             modifier = modifier
+                .padding(horizontal = 20.dp)
                 .weight(1f)
                 .align(alignment = Alignment.CenterHorizontally)
         ) {
@@ -70,14 +71,12 @@ fun HomeContainer(
                 item {
                     HorizontalDivider(
                         color = colorResource(R.color.border),
-                        modifier = modifier.padding(horizontal = 20.dp)
                     )
                 }
                 items(list.size) { index ->
                     MusicItem(modifier = modifier, model = list[index])
                     HorizontalDivider(
                         color = colorResource(R.color.border),
-                        modifier = modifier.padding(horizontal = 20.dp)
                     )
                 }
             }
@@ -85,23 +84,7 @@ fun HomeContainer(
 
         Spacer(modifier = modifier.height(19.dp))
 
-        Row(
-            modifier = modifier.padding(horizontal = 20.dp)
-        ) {
-            Image(
-                painterResource(R.drawable.white_logo),
-                modifier = modifier.size(16.dp),
-                contentDescription = "logo",
-            )
-
-            Spacer(modifier = modifier.width(width = 6.dp))
-
-            Text(
-                "운동별 추천",
-                style = MaterialTheme.typography.bodyMedium
-            )
-
-        }
+        LogoTitleBar(modifier = modifier, title = "운동별 추천")
 
         Spacer(modifier = modifier.height(20.5.dp))
 
@@ -140,8 +123,7 @@ fun ExerciseItem(
     ),
 ) {
     Surface(
-        modifier = modifier
-            .aspectRatio(1f),
+        modifier = modifier.aspectRatio(1f),
         color = colorResource(R.color.grey400),
         shape = RoundedCornerShape(8.dp)
     ) {
