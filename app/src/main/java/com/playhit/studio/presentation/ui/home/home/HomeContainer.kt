@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -48,7 +47,7 @@ fun HomeContainer(
 
     Column(modifier = modifier.fillMaxSize()) {
         Row {
-            Spacer(modifier = modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
             TextButton(
                 onClick = {
 
@@ -63,14 +62,14 @@ fun HomeContainer(
             }
         }
 
-        Spacer(modifier = modifier.height(9.dp))
+        Spacer(modifier = Modifier.height(9.dp))
         Box(
-            modifier = modifier
-                .padding(horizontal = 20.dp)
+            modifier = Modifier
+                //.padding(horizontal = 20.dp)
                 .weight(1f)
                 .align(alignment = Alignment.CenterHorizontally)
         ) {
-            LazyColumn(modifier = modifier) {
+            LazyColumn(modifier = Modifier) {
                 item {
                     HorizontalDivider(
                         color = colorResource(R.color.border),
@@ -78,7 +77,7 @@ fun HomeContainer(
                 }
                 items(list.size) { index ->
                     MusicItem(
-                        modifier = modifier,
+                        modifier = Modifier,
                         model = list[index],
                         clickCallback = {
                             itemCallback(list[index])
@@ -91,15 +90,14 @@ fun HomeContainer(
             }
         }
 
-        Spacer(modifier = modifier.height(19.dp))
+        Spacer(modifier = Modifier.height(19.dp))
 
-        LogoTitleBar(modifier = modifier, title = "운동별 추천")
+        LogoTitleBar(modifier = Modifier, title = "운동별 추천")
 
-        Spacer(modifier = modifier.height(20.5.dp))
+        Spacer(modifier = Modifier.height(20.5.dp))
 
         LazyRow(
-            modifier = modifier.height(120.dp),
-            contentPadding = PaddingValues(horizontal = 20.dp),
+            modifier = Modifier.height(120.dp),
             horizontalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             items(exerciseTypes.size) {
